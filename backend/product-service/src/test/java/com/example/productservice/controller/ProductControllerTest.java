@@ -9,19 +9,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.example.productservice.model.Product;
 import com.example.productservice.repository.ProductRepository;
 
+@ActiveProfiles("test")
 @SpringBootTest
-@TestPropertySource(properties = {
-    "INTERNAL_TOKEN=test-internal-token-for-microservices",
-    "spring.data.mongodb.uri=mongodb://localhost:27017/test-products"
-})
+@AutoConfigureMockMvc
 class ProductControllerTest {
 
     @Autowired
