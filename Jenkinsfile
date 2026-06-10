@@ -108,7 +108,7 @@ pipeline {
     post {
         always {
             echo "📊 Pipeline execution finished. Status: ${currentBuild.currentResult}"
-            node {
+            node('') {
                 junit '**/target/surefire-reports/*.xml'
             }
         }
