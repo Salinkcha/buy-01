@@ -82,8 +82,8 @@ pipeline {
                     sh 'for img in $(cat /tmp/current_images.txt); do docker tag $img ${img}-backup || true; done'
                     
                     try {
-                        sh 'docker compose -p buy-01 build'
-                        sh 'docker compose -p buy-01 up -d'
+                        sh 'docker compose -p buy-01 build mongo frontend user-service product-service media-service'
+                        sh 'docker compose -p buy-01 up -d --force-recreate mongo frontend user-service product-service media-service'
                         
                         timeout(time: 2, unit: 'MINUTES') {
                             sh 'until [ $(docker compose -p buy-01 ps -q | wc -l) -eq 5 ]; do sleep 5; done'
