@@ -25,9 +25,19 @@ pipeline {
         sh 'ls frontend'
             }
         }
+
+        stage('Docker Check') {
+            steps {
+                sh 'whoami'
+                sh 'id'
+                sh 'docker version'
+                sh 'docker compose version'
+                sh 'docker ps'
+            }
+        }
         
         stage('Build & Test Backend') {
-            stages {
+            parallel {
                 stage('User Service') {
                     steps {
                         dir('backend/user-service') {
