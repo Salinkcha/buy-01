@@ -13,6 +13,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
+    user: root
     restart: unless-stopped
     ports:
       - "8080:8080"
@@ -21,6 +22,7 @@ services:
       - buy-net
     volumes:
       - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
 
   frontend:
     build: ./frontend
@@ -48,8 +50,8 @@ services:
       - "8082:8082"
     environment:
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/productdb
-      - JWT_SECRET=ChangeThisJWTSecretToASecureValue
-      - INTERNAL_TOKEN=ChangeThisInternalToken
+      - JWT_SECRET=${JWT_SECRET}
+      - INTERNAL_TOKEN=${INTERNAL_TOKEN}
     depends_on:
       - mongo
     networks:
@@ -61,8 +63,8 @@ services:
       - "8083:8083"
     environment:
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/mediadb
-      - JWT_SECRET=ChangeThisJWTSecretToASecureValue
-      - INTERNAL_TOKEN=ChangeThisInternalToken
+      - JWT_SECRET=${JWT_SECRET}
+      - INTERNAL_TOKEN=${INTERNAL_TOKEN}
       - PRODUCT_SERVICE_URL=http://product-service:8082
     depends_on:
       - mongo

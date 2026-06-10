@@ -25,6 +25,8 @@ RUN apt-get update && apt-get install -y \
     libxss1 \
     libxtst6 \
     xdg-utils \
-    && rm -rf /var/lib/apt/lists/*
+    curl
+
+RUN curl -fsSL https://get.docker.com | sh
 
 USER jenkins
