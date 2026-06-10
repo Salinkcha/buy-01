@@ -78,8 +78,8 @@ pipeline {
                     
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                         sh '''
-                            docker compose build
-                            docker compose up -d
+                            docker compose -p buy-01 build
+                            docker compose -p buy-01 up -d
                             
                             sleep 15
                             
@@ -96,7 +96,7 @@ pipeline {
                                 docker tag $img $original || true
                             done
                             
-                            docker compose up -d
+                            docker compose -p buy-01 up -d
                         '''
                         error('Deployment failed. Rollback was executed.')
                     }
