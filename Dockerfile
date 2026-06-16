@@ -2,7 +2,6 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-# Installer les dépendances système + Chromium
 RUN apt-get update && apt-get install -y \
     fonts-liberation \
     libasound2 \
@@ -30,11 +29,10 @@ RUN apt-get update && apt-get install -y \
     chromium \
     chromium-driver
 
-# Installer Docker
 RUN curl -fsSL https://get.docker.com | sh
 
-# Variables d'environnement pour Karma/Puppeteer
-ENV CHROME_BIN=/usr/bin/chromium
+# Empêcher Puppeteer de télécharger son propre Chrome
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV CHROME_BIN=/usr/bin/chromium
 
 USER jenkins
