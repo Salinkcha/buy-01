@@ -25,14 +25,8 @@ RUN apt-get update && apt-get install -y \
     libxss1 \
     libxtst6 \
     xdg-utils \
-    curl \
-    chromium \
-    chromium-driver
+    curl
 
 RUN curl -fsSL https://get.docker.com | sh
-
-# Empêcher Puppeteer de télécharger son propre Chrome
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-ENV CHROME_BIN=/usr/bin/chromium
 
 USER jenkins
